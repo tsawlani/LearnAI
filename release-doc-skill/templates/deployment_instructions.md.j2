@@ -1,0 +1,159 @@
+# 🚀 Deployment Instructions — {{ milestone }}
+
+> **Milestone:** {{ milestone }}
+> **Due Date:** {{ due_date }}
+> **Generated:** {{ generated_date }}
+> **Status:** 🟡 Awaiting developer input
+
+---
+
+## ⚠️ Developer Action Required
+
+Fields marked **`[TO BE FILLED]`** must be completed by the responsible developer before deployment begins.
+
+---
+
+## 1. Release Details
+
+| Field | Value |
+|---|---|
+| **Milestone** | {{ milestone }} |
+| **Release Version** | `[TO BE FILLED]` ← e.g. `2.4.0` |
+| **Release Date** | `[TO BE FILLED]` ← planned deployment date |
+| **Release Manager** | `[TO BE FILLED]` ← GitLab username |
+| **Deployment Ticket** | `[TO BE FILLED]` ← Link to deployment issue |
+
+---
+
+## 2. Environment Targets
+
+| Environment | URL / Endpoint | Deployment Link | Status |
+|---|---|---|---|
+| **Staging** | `[TO BE FILLED]` | `[TO BE FILLED]` | 🔲 Not started |
+| **Production** | `[TO BE FILLED]` | `[TO BE FILLED]` | 🔲 Not started |
+
+> Add or remove rows for additional environments (e.g. UAT, pre-prod).
+
+---
+
+## 3. Pre-Deployment Checklist
+
+Complete every item before triggering deployment. Check off items as you go.
+
+### Code & Review
+- [ ] All issues in [Release Scope](Release-Scope-{{ milestone_slug }}) are merged to the release branch
+- [ ] Release branch has passed all CI/CD pipeline checks (no failing jobs)
+- [ ] Code review sign-off received from at least one senior engineer
+- [ ] No unresolved merge conflicts on the release branch
+
+### Testing
+- [ ] All automated tests pass (unit, integration, e2e)
+- [ ] Regression testing completed on staging
+- [ ] Performance / load testing completed (if applicable)
+- [ ] Security scan completed — no critical/high vulnerabilities
+
+### Configuration & Infrastructure
+- [ ] Environment variables and secrets are updated for all target environments
+- [ ] Database migrations reviewed and tested on staging
+- [ ] Feature flags configured correctly for this release
+- [ ] Infrastructure changes (if any) applied and verified
+- [ ] Rollback plan reviewed and confirmed ready (see [Rollback Instructions](Rollback-Instructions-{{ milestone_slug }}))
+
+### Comms
+- [ ] Stakeholders notified of deployment window
+- [ ] Support team briefed on changes in this release
+- [ ] Maintenance window scheduled (if required)
+
+---
+
+## 4. Deployment Steps
+
+> **Fill in the actual deployment commands/steps for your project.** The structure below is a guide — replace placeholder steps with real ones.
+
+### 4.1 Staging Deployment
+
+```bash
+# [TO BE FILLED] — replace with actual commands, e.g.:
+# git checkout release/{{ milestone }}
+# ./deploy.sh staging
+# kubectl apply -f k8s/staging/
+```
+
+**Deployment Pipeline Link:** `[TO BE FILLED]`
+
+**Expected Duration:** `[TO BE FILLED]` minutes
+
+**Verification URL:** `[TO BE FILLED]`
+
+---
+
+### 4.2 Production Deployment
+
+> ⚠️ Only proceed after staging deployment is verified.
+
+```bash
+# [TO BE FILLED] — replace with actual commands, e.g.:
+# ./deploy.sh production
+# kubectl apply -f k8s/production/
+```
+
+**Deployment Pipeline Link:** `[TO BE FILLED]`
+
+**Expected Duration:** `[TO BE FILLED]` minutes
+
+**Verification URL:** `[TO BE FILLED]`
+
+---
+
+## 5. Post-Deployment Verification
+
+After each environment deployment, verify the following:
+
+### Health Checks
+- [ ] Application health endpoint returns `200 OK`
+  - URL: `[TO BE FILLED]`
+- [ ] All dependent services responding normally
+- [ ] No error spikes in application logs (first 15 minutes post-deploy)
+- [ ] No alerts firing in monitoring dashboard
+
+### Functional Verification
+- [ ] Smoke test suite executed and passed
+- [ ] Key user flows tested manually:
+  - `[TO BE FILLED]` — e.g. Login / Authentication
+  - `[TO BE FILLED]` — e.g. Core feature X
+  - `[TO BE FILLED]` — e.g. Core feature Y
+- [ ] Database migrations applied successfully (check migration status)
+
+### Monitoring
+- [ ] Error rate within normal baseline (< `[TO BE FILLED]`%)
+- [ ] Response times within SLA thresholds
+- [ ] Memory and CPU usage stable
+
+---
+
+## 6. Rollback Trigger Criteria
+
+Initiate rollback immediately if **any** of the following occur within 30 minutes post-deployment:
+
+- Error rate exceeds `[TO BE FILLED]`% (baseline: `[TO BE FILLED]`%)
+- Application health endpoint returns non-200
+- Critical user flow broken (login, checkout, etc.)
+- Database integrity issues detected
+- P1/P0 incident raised by support or monitoring
+
+**→ If rollback is needed, follow:** [Rollback Instructions — {{ milestone }}](Rollback-Instructions-{{ milestone_slug }})
+
+---
+
+## 7. Sign-off
+
+| Role | Name | Sign-off | Time |
+|---|---|---|---|
+| Release Manager | `[TO BE FILLED]` | ☐ | — |
+| QA Lead | `[TO BE FILLED]` | ☐ | — |
+| Engineering Lead | `[TO BE FILLED]` | ☐ | — |
+
+---
+
+*Related pages:*
+*[Release Scope — {{ milestone }}](Release-Scope-{{ milestone_slug }}) · [Rollback Instructions — {{ milestone }}](Rollback-Instructions-{{ milestone_slug }})*
