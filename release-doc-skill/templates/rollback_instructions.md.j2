@@ -1,0 +1,182 @@
+# ⏪ Rollback Instructions — {{ milestone }}
+
+> **Milestone:** {{ milestone }}
+> **Generated:** {{ generated_date }}
+> **Status:** 🟡 Awaiting developer input
+
+---
+
+## ⚠️ Developer Action Required
+
+Fields marked **`[TO BE FILLED]`** must be completed before deployment so rollback can be executed quickly if needed.
+
+---
+
+## 1. Rollback Overview
+
+| Field | Value |
+|---|---|
+| **Milestone** | {{ milestone }} |
+| **Release Version** | `[TO BE FILLED]` |
+| **Previous Stable Version** | `[TO BE FILLED]` ← version to roll back to |
+| **Rollback Owner** | `[TO BE FILLED]` ← GitLab username |
+| **Estimated Rollback Time** | `[TO BE FILLED]` minutes |
+| **Last Updated** | {{ generated_date }} |
+
+---
+
+## 2. Rollback Decision Criteria
+
+Initiate rollback **immediately** if any of the following are observed post-deployment:
+
+### Automatic Triggers (no discussion needed — rollback immediately)
+- [ ] Application is completely down / unreachable
+- [ ] Health endpoint returns non-200 for > 2 minutes
+- [ ] Data corruption detected
+- [ ] Security breach detected
+
+### Escalation Triggers (consult Release Manager before rolling back)
+- [ ] Error rate exceeds `[TO BE FILLED]`% for > 5 minutes
+- [ ] Critical user flow failure (e.g. login, payments, core feature)
+- [ ] P0/P1 incident raised within 30 minutes of deployment
+- [ ] SLA breach imminent
+
+### Do NOT Rollback If
+- Minor cosmetic issues that can be hotfixed
+- Non-critical feature degradation that does not affect core flows
+- Issue already being resolved by a forward fix (confirm with Release Manager)
+
+---
+
+## 3. Pre-Rollback Checklist
+
+Before executing rollback, complete the following:
+
+- [ ] Rollback decision confirmed by Release Manager: `[TO BE FILLED]`
+- [ ] Incident created / P0 raised in ticketing system
+- [ ] Stakeholders notified (Support, Product, Engineering leads)
+- [ ] Current error logs captured and saved for post-mortem
+- [ ] Database state assessed — confirm whether data migration rollback is needed
+- [ ] Rollback commands / pipeline ready to execute (verified below)
+
+---
+
+## 4. Rollback Steps
+
+> **Fill in your actual rollback commands.** The structure below is a guide.
+
+### 4.1 Staging Rollback
+
+```bash
+# [TO BE FILLED] — replace with actual rollback commands, e.g.:
+# git checkout <previous-stable-tag>
+# ./deploy.sh staging
+# kubectl rollout undo deployment/my-app -n staging
+```
+
+**Rollback Pipeline Link:** `[TO BE FILLED]`
+
+**Expected Duration:** `[TO BE FILLED]` minutes
+
+---
+
+### 4.2 Production Rollback
+
+> ⚠️ Execute only after staging rollback is confirmed stable, unless production is critically down.
+
+```bash
+# [TO BE FILLED] — replace with actual rollback commands, e.g.:
+# ./deploy.sh production --version <previous-stable-tag>
+# kubectl rollout undo deployment/my-app -n production
+```
+
+**Rollback Pipeline Link:** `[TO BE FILLED]`
+
+**Expected Duration:** `[TO BE FILLED]` minutes
+
+---
+
+### 4.3 Database Rollback (if applicable)
+
+> ⚠️ Only perform database rollback if migrations were applied AND are reversible.
+> Consult your DBA before executing.
+
+```bash
+# [TO BE FILLED] — replace with actual DB rollback commands, e.g.:
+# rails db:rollback STEP=3
+# flyway -target=<previous-version> migrate
+```
+
+**Reversible migrations in this release:** `[TO BE FILLED — list migration files]`
+
+**Data loss risk:** `[TO BE FILLED — Yes/No + details]`
+
+---
+
+### 4.4 Cache / CDN Invalidation (if applicable)
+
+```bash
+# [TO BE FILLED] — if CDN/cache invalidation is needed post-rollback:
+# aws cloudfront create-invalidation --distribution-id <ID> --paths "/*"
+```
+
+---
+
+## 5. Post-Rollback Verification
+
+After rollback completes, verify the following:
+
+### Health Checks
+- [ ] Application health endpoint returns `200 OK`
+  - URL: `[TO BE FILLED]`
+- [ ] Previous version confirmed running (check version endpoint or build ID)
+  - URL: `[TO BE FILLED]`
+- [ ] No new errors introduced by rollback itself
+- [ ] All dependent services responding normally
+
+### Functional Verification
+- [ ] Core user flows tested and working:
+  - `[TO BE FILLED]` — e.g. Login
+  - `[TO BE FILLED]` — e.g. Core feature
+- [ ] Database integrity confirmed
+- [ ] Error rate returned to pre-deployment baseline
+
+### Monitoring
+- [ ] Alert acknowledged and resolved in monitoring system
+- [ ] On-call engineer confirmed system stable
+- [ ] Error rate back within normal range (< `[TO BE FILLED]`%)
+
+---
+
+## 6. Post-Rollback Actions
+
+- [ ] Incident marked as resolved (with rollback noted as resolution)
+- [ ] Root cause identified (or investigation ticket created)
+- [ ] Post-mortem scheduled within 48 hours
+- [ ] Failed issues from [Release Scope](Release-Scope-{{ milestone_slug }}) moved to next milestone
+- [ ] Release Manager communicates rollback status to stakeholders
+
+---
+
+## 7. Contacts & Escalation
+
+| Role | Name / Channel | Contact |
+|---|---|---|
+| Release Manager | `[TO BE FILLED]` | `[TO BE FILLED]` |
+| On-Call Engineer | `[TO BE FILLED]` | `[TO BE FILLED]` |
+| Database Admin | `[TO BE FILLED]` | `[TO BE FILLED]` |
+| Incident Channel | `[TO BE FILLED]` | e.g. `#incidents` in Slack |
+
+---
+
+## 8. Rollback Sign-off
+
+| Role | Name | Sign-off | Time |
+|---|---|---|---|
+| Release Manager | `[TO BE FILLED]` | ☐ | — |
+| Engineering Lead | `[TO BE FILLED]` | ☐ | — |
+
+---
+
+*Related pages:*
+*[Release Scope — {{ milestone }}](Release-Scope-{{ milestone_slug }}) · [Deployment Instructions — {{ milestone }}](Deployment-Instructions-{{ milestone_slug }})*
