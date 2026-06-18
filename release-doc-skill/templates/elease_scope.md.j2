@@ -1,0 +1,54 @@
+# 📦 Release Scope — {{ milestone }}
+
+> **Milestone:** {{ milestone }}
+> **Due Date:** {{ due_date }}
+> **Generated:** {{ generated_date }}
+> **Issues:** {{ total_count }} total · {{ open_count }} open · {{ closed_count }} closed
+
+---
+
+## Summary
+
+This page captures all GitLab issues included in the **{{ milestone }}** milestone.
+It is auto-generated — do not edit manually. Re-run the release-docs skill to refresh.
+
+---
+
+## Issue Breakdown
+
+| # | Issue | Title | Assignee(s) | Status |
+|---|-------|-------|-------------|--------|
+{% for issue in issues %}
+| {{ loop.index }} | [#{{ issue.iid }}]({{ issue.web_url }}) | {{ issue.title }} | {{ issue.assignees | join(', ') if issue.assignees else '—' }} | {{ '✅ Closed' if issue.state == 'closed' else '🔵 Open' }} |
+{% endfor %}
+
+---
+
+## Detailed Tickets
+
+{% for issue in issues %}
+### [#{{ issue.iid }}] {{ issue.title }}
+
+| Field | Value |
+|---|---|
+| **Issue ID** | [#{{ issue.iid }}]({{ issue.web_url }}) |
+| **Status** | {{ '✅ Closed' if issue.state == 'closed' else '🔵 Open' }} |
+| **Assignee(s)** | {{ issue.assignees | join(', ') if issue.assignees else '—' }} |
+| **Milestone** | {{ issue.milestone_name }} |
+| **Due Date** | {{ issue.due_date if issue.due_date else '—' }} |
+
+**Description:**
+
+{{ issue.description if issue.description else '_No description provided._' }}
+
+---
+{% endfor %}
+
+{% if total_count == 0 %}
+> ⚠️ No issues were found for milestone **{{ milestone }}**. Ensure issues are assigned to this milestone in GitLab.
+{% endif %}
+
+---
+
+*Related pages:*
+*[Deployment Instructions — {{ milestone }}](Deployment-Instructions-{{ milestone_slug }}) · [Rollback Instructions — {{ milestone }}](Rollback-Instructions-{{ milestone_slug }})*
